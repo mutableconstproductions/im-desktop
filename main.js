@@ -32,8 +32,12 @@ function writeUuidToFile(uuid) {
 }
 
 function readUuidFromFile() {
-    let uuid = fs.readFileSync(identityFileLocation);
-    return uuid;
+    try {
+        return fs.readFileSync(identityFileLocation);
+    } catch(err) {
+        console.log('No identity file found.')
+    }
+    return null;
 }
 
 function getIdentity() {
