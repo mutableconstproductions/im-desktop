@@ -1,4 +1,6 @@
-var myApp = angular.module('myApp', []);
+'use strict';
+
+let myApp = angular.module('myApp', []);
 
 myApp.factory('Contact', function($http) {
     function getContacts(uuid) {
@@ -12,8 +14,6 @@ myApp.factory('Contact', function($http) {
         });
     };
 
-
-
     return {
         getContacts: getContacts
     };
@@ -21,7 +21,7 @@ myApp.factory('Contact', function($http) {
 
 myApp.factory('Message', function($http) {
     function sendMessage(uuid, mobile, text) {
-        var packet = {
+        let packet = {
             text: text,
             mobile: mobile,
             clientFrom: uuid
@@ -45,7 +45,7 @@ myApp.factory('Message', function($http) {
 
 
 myApp.controller('MyCtrl', function($scope, Contact, Message) {
-    var self = this;
+    let self = this;
     self.identity = uuidIdentity;
     self.contacts = null;
 
