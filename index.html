@@ -6,7 +6,7 @@
   </head>
   <body>
     <h1>Mutable Const Productions!</h1>
-    <div ng-controller = "MyCtrl as myCtrl">
+    <div ng-controller = "MyCtrl as myCtrl" data-ng-init="init()">
       <ul>
         <li ng-repeat="contact in myCtrl.contacts">
           <button>{{contact.name}}</button> {{contact.mobile}}
@@ -18,4 +18,9 @@
   </body>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
   <script src="test.js"></script>
+  <script>
+    <!-- Retrieve consts picked up from main process startup -->
+    const remote = require('remote');
+    const uuidIdentity = remote.getGlobal('uuidIdentity');
+  </script>
 </html>

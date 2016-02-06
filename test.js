@@ -1,7 +1,5 @@
 var myApp = angular.module('myApp', []);
 
-var myUuid = '5c958196-6519-4773-8429-91a8ab31dfca';
-
 myApp.factory('Contact', function($http) {
     function getContacts(uuid) {
         return $http({
@@ -48,14 +46,15 @@ myApp.factory('Message', function($http) {
 
 myApp.controller('MyCtrl', function($scope, Contact, Message) {
     var self = this;
-
+    self.identity = uuidIdentity;
     self.contacts = null;
-    Contact.getContacts(myUuid).then(function(response) {
+
+    Contact.getContacts(self.identity).then(function(response) {
         self.contacts = response.data.data;
     });
 
     self.send = function() {
-        Message.sendMessage(myUuid, '555-5555', self.currentMessage);
+        Message.sendMessage(self.identity, '555-5555', self.currentMessage);
         self.currentMessage = null;
     }
 });

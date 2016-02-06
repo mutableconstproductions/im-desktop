@@ -9,9 +9,7 @@ const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
 
 const identityFileLocation = __dirname + '/identity';
-
 let mainWindow;
-
 
 function genUuid() {
     function s4() {
@@ -26,48 +24,42 @@ function genUuid() {
 function writeUuidToFile(uuid) {
     fs.writeFile(identityFileLocation, uuid, function(err) {
         if (err) {
+            console.log('Error writing to: ' + identityFileLocation)
             return console.log(err);
         }
-        console.log('success');
+        console.log('Generated identity at: ' + identityFileLocation);
     });
 }
 
 function readUuidFromFile() {
-    let uuid;
-    fs.readFile(identityFileLocation, function(err, data) {
-        if (err) {
-            return null;
-        }
-        let uuid = data;
-    });
+    let uuid = fs.readFileSync(identityFileLocation);
     return uuid;
 }
 
 function getIdentity() {
     let identity = readUuidFromFile();
-    if (identity === null) {
+    if (identity === null || identity === undefined) {
         identity = genUuid()
         writeUuidToFile(identity);
     }
     return identity;
 }
 
-
 function createWindow () {
-  app.identity = getIdentity();
-  // Create the browser window.
-  mainWindow = new BrowserWindow({width: 800, height: 600});
+    global.uuidIdentity = String(getIdentity());
+    // Create the browser window.
+    mainWindow = new BrowserWindow({width: 800, height: 600});
 
-  // and load the index.html of the app.
-  mainWindow.loadURL('file://' + __dirname + '/index.html');
+    // and load the index.html of the app.
+    mainWindow.loadURL('file://' + __dirname + '/index.html');
 
-  // Emitted when the window is closed.
-  mainWindow.on('closed', function() {
-    // Dereference the window object, usually you would store windows
-    // in an array if your app supports multi windows, this is the time
-    // when you should delete the corresponding element.
-    mainWindow = null;
-  });
+    // Emitted when the window is closed.
+    mainWindow.on('closed', function() {
+        // Dereference the window object, usually you would store windows
+        // in an array if your app supports multi windows, this is the time
+        // when you should delete the corresponding element.
+        mainWindow = null;
+    });
 }
 
 // When ready to start
@@ -89,4 +81,3 @@ app.on('activate', function () {
     createWindow();
   }
 });
-
