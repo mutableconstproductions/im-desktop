@@ -9,11 +9,12 @@
     <div ng-controller = "MyCtrl as myCtrl" data-ng-init="init()">
       <ul>
         <li ng-repeat="contact in myCtrl.contacts">
-          <button>{{contact.name}}</button> {{contact.mobile}}
+          <button ng-click="myCtrl.switchContact(contact.mobile)">{{contact.name}}</button>
         </li>
       </ul>
       <input type="text" ng-model="myCtrl.currentMessage" placeholder="message..."
              ng-keyup="$event.keyCode == 13 && myCtrl.send()">
+      <textarea name="message-thread" readonly="true" cols=10 rows=10 ng-model="myCtrl.messageThread"></textarea>
     </div>
   </body>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
