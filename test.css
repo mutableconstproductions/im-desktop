@@ -1,0 +1,55 @@
+.message-elem {
+    display: inline-block;
+}
+
+#contacts {
+    width: 12em;
+    border-right: 1px solid #000;
+    border-left: 1px solid #000;
+    border: 1px solid #000000;
+    padding: 0 0 1em 0;
+    margin-bottom: 1em;
+    font-family: 'Trebuchet MS', 'Lucida Grande',
+    Verdana, Lucida, Geneva, Helvetica,
+    Arial, sans-serif;
+    background-color: #C0C0C0;
+    color: #333;
+    position: absolute;
+    height: 500px;
+}
+
+#contacts ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border: 1px solid #000000;
+}
+
+#contacts li {
+    border-bottom: 1px solid #000000;
+    margin: 0;
+}
+
+#contacts .selected {
+    background-color: #FFFFFF;
+}
+
+#message-thread {
+    position: absolute;
+    font-family: 'Trebuchet MS', 'Lucida Grande',
+    Verdana, Lucida, Geneva, Helvetica,
+    Arial, sans-serif;
+    height: 500px;
+    left: 240px;
+    width: 512px;
+}
+
+#message-box {
+    position: absolute;
+    font-family: 'Trebuchet MS', 'Lucida Grande',
+    Verdana, Lucida, Geneva, Helvetica,
+    Arial, sans-serif;
+    left: 240px;
+    width: 512px;
+    top: 530px;
+}

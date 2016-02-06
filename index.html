@@ -5,16 +5,20 @@
     <title>Hello World!</title>
   </head>
   <body>
-    <h1>Mutable Const Productions!</h1>
-    <div ng-controller = "MyCtrl as myCtrl" data-ng-init="init()">
-      <ul>
-        <li ng-repeat="contact in myCtrl.contacts">
-          <button ng-click="myCtrl.switchContact(contact.mobile)">{{contact.name}}</button>
+    <!-- <h1>Mutable Const Productions!</h1> -->
+    <div id="messaging" ng-controller="MyCtrl as myCtrl" data-ng-init="init()">
+      <ul id="contacts" class="message-elem">
+        <li ng-repeat="contact in myCtrl.contacts"
+            ng-click="myCtrl.switchContact(contact.mobile)"
+            ng-class="myCtrl.currentContact.mobile === contact.mobile ? 'selected' : 'unselected'">
+          {{contact.name}}
         </li>
       </ul>
-      <input type="text" ng-model="myCtrl.currentMessage" placeholder="message..."
-             ng-keyup="$event.keyCode == 13 && myCtrl.send()">
-      <textarea name="message-thread" readonly="true" cols=10 rows=10 ng-model="myCtrl.messageThread"></textarea>
+      <div id="messaging-area" class="message-elem">
+        <textarea id="message-thread" readonly="true" ng-model="myCtrl.messageThread"></textarea>
+        <input id="message-box" type="text" ng-model="myCtrl.currentMessage" placeholder="message..."
+               ng-keyup="$event.keyCode == 13 && myCtrl.send()">
+      </div>
     </div>
   </body>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
@@ -24,4 +28,5 @@
     const remote = require('remote');
     const uuidIdentity = remote.getGlobal('uuidIdentity');
   </script>
+  <link rel="stylesheet" type="text/css" href="test.css" />
 </html>
