@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+  <head>
+    <meta charset="UTF-8">
+    <title>Hello World!</title>
+  </head>
+  <body>
+    <h1>Mutable Const Productions!</h1>
+    <div ng-controller = "MyCtrl as myCtrl">
+      <ul>
+        <li ng-repeat="contact in myCtrl.contacts">
+          <button>{{contact.name}}</button> {{contact.mobile}}
+        </li>
+      </ul>
+      <input type="text" ng-model="myCtrl.currentMessage" placeholder="message..."
+             ng-keyup="$event.keyCode == 13 && myCtrl.send()">
+    </div>
+  </body>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+  <script src="test.js"></script>
+</html>

@@ -1,0 +1,29 @@
+{
+  "name": "SuperNova",
+  "version": "1.0.0",
+  "description": "An Electron application",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mutableconst/supernova-desktop-electron.git"
+  },
+  "keywords": [
+    "Electron",
+    "text"
+  ],
+  "author": "Mutable Const Productions",
+  "license": "",
+  "dependencies": {
+    "angular2": "2.0.0-beta.3"
+  },
+  "bugs": {
+    "url": "https://github.com/mutableconst"
+  },
+  "homepage": "https://mutableconst.com",
+  "devDependencies": {
+    "electron-prebuilt": "^0.36.0"
+  }
+}
