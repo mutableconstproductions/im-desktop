@@ -10,7 +10,7 @@ myApp.factory('Contact', function($http) {
     function getContacts(uuid) {
         return $http({
             method: 'GET',
-            url: 'http://localhost:8080/getContacts?' + 'uuid=' + uuid
+            url: 'http://localhost:8080/getContacts?' + 'clientId=' + uuid
         }).success(function(response) {
             return response;
         }).error(function() {
@@ -43,14 +43,14 @@ myApp.factory('Message', function($http, Constants) {
         });
     };
 
-    function getNewMessages(uuid, time) {
+    function getNewMessages(uuid) {
         return $http({
             method: 'GET',
-            url: Constants.url + '/pollMessages?uuid=' + uuid + '&lastChecked=' + time
+            url: Constants.url + '/poll?clientId=' + uuid
         }).success(function(response) {
             return response;
         }).error(function() {
-            console.log('Error polling messages with uuid: ' + uuid + ' and time: ' + time);
+            console.log('Error polling messages with clientId: ' + uuid + ' and time: ' + time);
             return null;
         });
     }
@@ -69,7 +69,6 @@ myApp.controller('MyCtrl', function($scope, Constants, Contact, Message) {
     self.contactsByMobile = {};
     self.messageThread = "";
     self.currentContact = null;
-    self.lastSuccessFullMessagePoll = (new Date()).getTime();
 
 
     self.send = function() {
@@ -86,10 +85,10 @@ myApp.controller('MyCtrl', function($scope, Constants, Contact, Message) {
     }
 
     self.processNewMessages = function(messages) {
-        self.lastSuccessFullMessagePoll = (new Date()).getTime();
         for (let msg of messages) {
             let contact = self.contactsByMobile[msg.mobile];
-            let newMsg = contact.name + ': ' + msg.text + '\n';
+            let timestamp = '(' + (new Date(msg.dateSent)).toLocaleTimeString() + ') ';
+            let newMsg = timestamp + contact.name + ': ' + msg.text + '\n';
             contact.thread.push(newMsg);
             if (self.currentContact.mobile === contact.mobile) {
                 self.messageThread += newMsg;
@@ -108,7 +107,7 @@ myApp.controller('MyCtrl', function($scope, Constants, Contact, Message) {
         self.currentContact = self.contacts[0];
     }).then(function() {
         window.setInterval(function() {
-            Message.getNewMessages(self.identity, self.lastSuccessFullMessagePoll).then(function(response) {
+            Message.getNewMessages(self.identity).then(function(response) {
                 if (response !== null && response.data.length !== 0) {
                     self.processNewMessages(response.data);
                 }
